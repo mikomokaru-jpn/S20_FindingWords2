@@ -18,7 +18,9 @@ Cancellation of processing can be accepted in the middle of processing. The proc
 If the number of target files is too large, the process will take a long time, so if the number of files exceeds 100,000, a warning dialog will be displayed and the user can cancel the process.
 
 ## Class structure diagram
-### Implementation points
+
+<img src="http://mikomokaru.sakura.ne.jp/data/B43/findingWords2-2.png" alt="diagram" title="diagram" width="500">
+
 ### (1) Multi-thread processing
 The parallelization of processing uses multi-thread function GCD. The queue is concurrent. Subthread processing is asynchronous in order to enable to display data to UI and to get events from UI.
 
@@ -33,8 +35,8 @@ Then, there is a process that it first gets a currentry value of the property , 
 In such cases, you should queue the processing block to serial queue, so sequential processing is guaranteed and problems can be avoided.
 
 In this application, as the above example, the following two processes are executed in main thread via serial queue.
-* 1. Merge the records of individual search results into the aggregation table.
-* 2. Add the number of processed files for each thread to current total number. This value is displayed in the progress bar as progress.
+* Merge the records of individual search results into the aggregation table.
+* Add the number of processed files for each thread to current total number. This value is displayed in the progress bar as progress.
 
 ### (2) Processing synchronization
 Wait for the end of all the search processes have been executed in parallel, and then create the list of results. This requires synchronous control. Here, a global counter is prepared, the counter is incremented each time one search process is completed, and when all the processes are completed, a delegate method that creates and displays the list of result is called.
