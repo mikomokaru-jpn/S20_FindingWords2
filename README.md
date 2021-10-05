@@ -16,3 +16,25 @@ Display the progress rate of the process in the progress bar of the window. A pr
 Cancellation of processing can be accepted in the middle of processing. The process is stopped immediately when stop button is clicked.
 
 If the number of target files is too large, the process will take a long time, so if the number of files exceeds 100,000, a warning dialog will be displayed and the user can cancel the process.
+
+## Class structure diagram
+### Implementation points
+### (1) Multi-thread processing
+The parallelization of processing uses multi-thread function GCD. The queue is concurrent. Subthread processing is asynchronous in order to enable to display data to UI and to get events from UI.
+
+After all text search processes by subthread has been completed, the list is created and displayed. These processes are implemented with delegate method.
+
+UI operations need to be done in main thread, and if you try to do it from sub thread, you must re-queue the function to be done to main thread.
+
+Be careful when multiple subthreads process executed concurrently update properties of an object. For example, when adding an element to an array, this process is not thread-safe and can cause a system crash due to a conflict of multiple assignments.
+
+Then, there is a process that it first gets a currentry value of the property , updates it, and then rewrites it back the property. it is a multi-step process. So if many number of subthreads execute this process at the same time, the consistency of each process is not guaranteed, and unexpected results are likely to occur.
+
+In such cases, you should queue the processing block to serial queue, so sequential processing is guaranteed and problems can be avoided.
+
+In this application, as the above example, the following two processes are executed in main thread via serial queue.
+* 1. Merge the records of individual search results into the aggregation table.
+* 2. Add the number of processed files for each thread to current total number. This value is displayed in the progress bar as progress.
+
+### (2) Processing synchronization
+Wait for the end of all the search processes have been executed in parallel, and then create the list of results. This requires synchronous control. Here, a global counter is prepared, the counter is incremented each time one search process is completed, and when all the processes are completed, a delegate method that creates and displays the list of result is called.
