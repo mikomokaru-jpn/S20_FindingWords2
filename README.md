@@ -39,3 +39,17 @@ In this application, as the above example, the following two processes are execu
 
 ### (2) Processing synchronization
 Wait for the end of all the search processes have been executed in parallel, and then create the list of results. This requires synchronous control. Here, a global counter is prepared, the counter is incremented each time one search process is completed, and when all the processes are completed, a delegate method that creates and displays the list of result is called.
+
+### Execution log output
+Output the following values to a log file
+* Number of divisions for parallel processing
+* Elapsed time
+* Total number of files
+* Number of files to be searched (text files that can be searched)
+* Number of files matched by search
+* Time taken for directory traverse
+* Directory name for search
+* Search keyword
+* AND / OR search option
+* Search method (is regular expression or not)
+
