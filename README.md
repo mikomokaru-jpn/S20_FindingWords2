@@ -1,4 +1,4 @@
-## macOS S20_FindingWords2
+## macOS_S_FindingWords2
 ### Full-text search traversing a specified directory Parallel processing by multithreading
 
 Confirmed operation: MacOS 10.14.6 / Xcode 11.3.1
