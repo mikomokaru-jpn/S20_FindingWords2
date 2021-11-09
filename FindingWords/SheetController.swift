@@ -12,7 +12,7 @@ class SheetController: NSWindowController {
     }
     //ゲッターの定義：xibファイル名を返す
     override var windowNibName: NSNib.Name?  {
-        return NSNib.Name(rawValue: "Progress")
+        return "Progress"
     }
     //イニシャライザ
     init(){

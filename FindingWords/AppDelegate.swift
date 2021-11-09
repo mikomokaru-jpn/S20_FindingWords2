@@ -46,7 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate,NSWindowDelegate, UASearchDel
     //結果一覧ファイル
     let outText = URL.init(fileURLWithPath:NSHomeDirectory() + "/Documents/DirectoryTraverse.txt")
     //オープンパネルのデフォルトパス名
-    let defaultOpenPath = "/Users/itohisao/Desktop/NewPractice_Swift"
+    let defaultOpenPath = NSHomeDirectory() + "/Desktop/NewPractice_Swift" //to change for yourself
     
     //--------------------------------------------------------------------------
     // アプリケーション起動時
