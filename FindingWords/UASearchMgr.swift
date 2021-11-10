@@ -307,6 +307,7 @@ class UASearchMgr: NSObject {
             let endDate = Date() //処理時間測定終了
             incCounter.totalElaps = endDate.timeIntervalSince(self.startDate!)
             let appDelegate = NSApplication.shared.delegate as! AppDelegate
+            /*
             self.logPrint(String(format:"%3ld 分割 %8.03f sec %5ld / %5ld / %6ld files " +
                                         "<traverse> %.03f sec %@ kw:[%@] cnd[%d] regex[%d]",
                                  self.DIVISION,
@@ -320,7 +321,7 @@ class UASearchMgr: NSObject {
                                  appDelegate.condMatrix.selectedCell()!.tag,
                                  self.searchMethod.rawValue
                                  ))
-            
+            */
             //途中経過シートを閉じる
             appDelegate.window?.endSheet(self.sheetController.window!)
             appDelegate.searchButton.keyEquivalent = "\r"
